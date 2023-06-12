@@ -1,0 +1,55 @@
+body {
+    background-color: white;
+}
+
+/*
+#csv-list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+*/
+
+* {
+    padding: 7px;
+}
+
+.csv-container {
+    display: block;
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.fl-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    height: 100%;
+}
+
+.fl-table th,
+.fl-table td {
+    padding: 12px 15px;
+}
+
+.fl-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.fl-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+#myInput {
+    width: 30%;
+}
