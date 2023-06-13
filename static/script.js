@@ -94,6 +94,7 @@ async function fillTable(event) {
     const select = document.querySelector("#csv-list select");
     const displayContainer = document.querySelector(".csv-container");
     const searchInput = document.createElement("input");
+    displayContainer.innerHTML = "";
     searchInput.id = "myInput";
     searchInput.addEventListener("keyup", filterRows);
     searchInput.placeholder = "Отфильтровать по значению из первого столбца";
