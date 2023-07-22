@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block head %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="https://static-00.iconduck.com/assets.00/csv-icon-448x512-rkoi7crs.png">
+    <title>HTML CSV APP</title>
+</head>
+<body>
+    <nav class="flex justify-between text-3xl my-3">
+        <ul class="flex ml-10">
+            <li><a href="/">Главная</a></li>
+        </ul>
+        <ul class="flex gap-5 mr-10">
+            <li><a href="/files">CSV Файлы</a></li>
+            <li><a href="/account">Мой аккаунт</a></li>
+            <li>Выйти</li>
+        </ul>
+    </nav>
+    <hr>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

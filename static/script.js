@@ -209,3 +209,7 @@ function sorting() {
             .forEach(tr => table.appendChild(tr) );
     })));
 }
+
+document.querySelector('.get-file form button').addEventListener('click', ((event) => {
+    event.preventDefault();
+}))

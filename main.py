@@ -2,10 +2,23 @@ from fastapi import FastAPI, Request, UploadFile, File, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, PlainTextResponse
+from csv_module.router import router as csv_router
+from auth.base_config import auth_backend
+from auth.manager import get_user_manager
 from csv_funcs import get_head
 import asyncio
 import os
 import json
+import uuid
+from fastapi_users import FastAPIUsers
+from pages.router import router as router_account
+from auth.models import User
+from auth.schemas import UserCreate, UserRead
+
+fastapi_users = FastAPIUsers[User, uuid.UUID](
+    get_user_manager,
+    [auth_backend],
+)
 
 app = FastAPI()
 
@@ -36,7 +49,7 @@ async def root(request: Request):
     # print(parsed_csv)
     # parsed_csv.replace("&lt;", "<")
     # parsed_csv.replace("&gt;", ">")
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("base.html", {"request": request})
 """
 async def root():
     try:
@@ -97,3 +110,24 @@ async def delete_file(request: Request, id: int):
     file_name = os.path.join(os.getcwd(), "csv_files", file)
     os.remove(file_name)
     return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
+
+
+app.include_router(
+    fastapi_users.get_register_router(UserRead, UserCreate),
+    prefix="/auth",
+    tags=["auth"],
+)
+
+app.include_router(
+    fastapi_users.get_auth_router(auth_backend),
+    prefix="/auth/jwt",
+    tags=["auth"],
+)
+
+app.include_router(
+    router_account
+)
+
+app.include_router(
+    csv_router
+)
