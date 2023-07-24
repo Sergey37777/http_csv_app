@@ -24,6 +24,7 @@
                 {% endfor %}
                 </select>
                 <button type="submit">Просмотреть файл</button>
+                <button type="submit" class="delete-btn">Удалить файл</button>
                 </ul>
             </form>
         </div>
@@ -50,6 +51,7 @@
     <script defer>
     let form = document.querySelector('.get-file form')
     let btn = document.querySelector(".get-file form button");
+    let deleteBtn = document.querySelector(".get-file form button.delete-btn");
     let select = document.querySelector('.select-file');
     let currentActivePage = null;
 
@@ -97,6 +99,13 @@
         }
     }
 
+    deleteBtn.addEventListener('click', async event => {
+        event.preventDefault();
+        await fetch(form.action, {method: "DELETE", headers: {'Content-Type': 'application/json;charset=utf-8'},
+                        body: JSON.stringify({file: +select.value, page: 1})});
+        window.location.reload();
+    })
+
 
     const pageContainer = document.querySelector('.pagination')
     btn.addEventListener("click", async (event) => {
@@ -137,7 +146,6 @@
                 });
             });
         });
-
     });
 
 </script>
