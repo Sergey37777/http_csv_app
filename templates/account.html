@@ -3,6 +3,9 @@
     <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
 {% endblock %}
 {% block content %}
+<div class="notification">
+    <h1>Вы успешно зарегестрировались</h1>
+</div>
 <div class="main">
     <div class="login">
         <div class="background">
@@ -27,21 +30,38 @@
             <div class="shape"></div>
             <div class="shape"></div>
 
-            <form action="/auth/register" method="post">
+            <form action="/auth/register" method="post" content="app">
                 <h3>Создать аккаунт</h3>
 
                 <label for="email">Ваш Email</label>
                 <input type="text" placeholder="ivan@mail.ru" id="email" name="email">
-
-
-
-
-
-
+                <label for="username">Ваш username</label>
+                <input type="text" placeholder="username" id="username" name="username">
+                <label for="password">Ваш пароль</label>
+                <input type="password"  id="password" name="password">
                 <button type="submit">Создать</button>
             </form>
         </div>
     </div>
-
 </div>
+    <script>
+    class Registration {
+        email = document.querySelector(".register form #email").value;
+        username = document.querySelector(".register form #username").value;
+        password = document.querySelector(".register form #password").value;
+    }
+    const btn = document.querySelector(".register form button");
+    btn.addEventListener('click', async event => {
+        event.preventDefault();
+        await fetch("/auth/register", {method: 'POST',
+            headers: {'Content-Type': 'application/json;charset=utf-8'},
+            body: JSON.stringify(new Registration())})
+            .then(res => res.json()).then(res => {
+                if (res.id) {
+                    document.querySelector(".notification").style.display = "block";
+                }
+            });
+    });
+
+    </script>
 {% endblock %}
